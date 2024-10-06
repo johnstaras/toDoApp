@@ -1,6 +1,12 @@
 import {useCallback} from 'react';
 
-const FilterButton = ({activeFilter, displayText, onPressFilter}) => {
+interface FilterButtonProps {
+  activeFilter: string;
+  displayText: string;
+  onPressFilter: (filter: string) => void;
+}
+
+const FilterButton: React.FC<FilterButtonProps> = ({activeFilter, displayText, onPressFilter}) => {
   const onClick = useCallback(() => {
     onPressFilter(displayText);
   }, [displayText]);
@@ -10,6 +16,7 @@ const FilterButton = ({activeFilter, displayText, onPressFilter}) => {
       style={{
         paddingRight: 10,
         textDecoration: activeFilter === displayText ? 'underline' : '',
+        cursor: 'pointer',
       }}
     >
       {displayText}

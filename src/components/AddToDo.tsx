@@ -1,7 +1,10 @@
 import {Button, TextField} from '@mui/material';
 import {useState} from 'react';
+import { AddToDoInterface } from '../interfaces/types';
+import './AddToDo.css'
 
-const AddToDo = ({onClickAdd}) => {
+const AddToDo : React.FC<AddToDoInterface>  = props => {
+  const {onClickAdd} = props
   const [fieldDisplayValue, setFieldDisplayValue] = useState('');
   const onClickPressed = () => {
     onClickAdd({
@@ -13,8 +16,9 @@ const AddToDo = ({onClickAdd}) => {
     setFieldDisplayValue('');
   };
   return (
-    <div style={{flex: 1, display: 'flex', paddingBottom: 20}}>
+    <div className='containerAddNew'>
       <TextField
+        data-testid={'check'}
         value={fieldDisplayValue}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setFieldDisplayValue(event.target.value);
@@ -24,7 +28,11 @@ const AddToDo = ({onClickAdd}) => {
         style={{width: '100%'}}
       />
       <div style={{paddingLeft: 20}} />
-      <Button onClick={onClickPressed} variant='outlined'>
+      <Button
+        disabled={fieldDisplayValue === ''}
+        onClick={onClickPressed}
+        variant='outlined'
+      >
         Create
       </Button>
     </div>

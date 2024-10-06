@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-Direction: column;
+  justify-content: center;
+  max-Width: 900px;
+}
+
+.loader {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}

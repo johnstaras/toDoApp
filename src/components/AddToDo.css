@@ -1,0 +1,10 @@
+.containerAddNew {
+  display: flex; 
+  flex: 1; 
+  flex-direction: row;
+  padding-bottom: 20px;
+}
+
+.leftPadding {
+  padding-Left: 20px
+}

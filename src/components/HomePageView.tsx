@@ -1,8 +1,10 @@
+import {Alert, CircularProgress, Snackbar} from '@mui/material';
 import AddToDo from '../components/AddToDo';
 import SearchBox from '../components/SearchBox';
 import FilterOptions from '../components/FilterOptions';
 import ToDoList from '../components/ToDoList';
-import {CircularProgress} from '@mui/material';
+import {HomePageViewInterface} from '../interfaces/HomePageView';
+import './HomePageView.css';
 
 const HomePageView = ({
   activeFilter,
@@ -13,25 +15,21 @@ const HomePageView = ({
   onClickDone,
   onClickAdd,
   isLoading,
-}) => {
+  onSearchChange,
+  alertInfo,
+}: HomePageViewInterface) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        maxWidth: 900,
-      }}
-    >
-      <AddToDo onClickAdd={onClickAdd}/>
-      <SearchBox />
+    <div className='container'>
+      <AddToDo onClickAdd={onClickAdd} />
+      <SearchBox onSearchChange={onSearchChange} />
       <FilterOptions
         activeFilter={activeFilter}
         onPressFilter={onPressFilter}
       />
       {isLoading ? (
-        <CircularProgress  />
+        <div className='loader'>
+          <CircularProgress />
+        </div>
       ) : (
         <ToDoList
           listData={listData}
@@ -40,6 +38,19 @@ const HomePageView = ({
           onClickDone={onClickDone}
         />
       )}
+      <Snackbar
+        open={!!alertInfo.message}
+        autoHideDuration={2000}
+        onClose={alertInfo.onClose}
+      >
+        <Alert
+          severity={alertInfo.severity}
+          variant='filled'
+          sx={{width: '100%'}}
+        >
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

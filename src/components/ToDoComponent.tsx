@@ -1,32 +1,27 @@
 import {useCallback} from 'react';
-import {Checkbox} from '@mui/material';
+import {Checkbox, IconButton} from '@mui/material';
+import xIcon from '../assets/close_x.svg';
+import {ToDoComponentInterface} from '../interfaces/types';
 import './ToDoComponent.css';
 
-const ToDoComponent = ({toDoItem, onClickDone, onClickDelete}) => {
+const ToDoComponent = ({
+  toDoItem,
+  onClickDone,
+  onClickDelete,
+}: ToDoComponentInterface) => {
   const {title, id, completed} = toDoItem;
 
   const onChangeDone = useCallback(() => {
     onClickDone({...toDoItem, completed: !completed});
-  }, [id]);
+  }, [completed, onClickDone, toDoItem]);
 
   const onPressDelete = useCallback(() => {
     onClickDelete(id);
-  }, [id]);
+  }, [id, onClickDelete]);
 
   return (
-    <li
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'space-between',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flex: 1,
-        }}
-      >
+    <li className='containerItemList'>
+      <div className='checkBoxContainer'>
         <Checkbox
           checked={completed}
           onChange={onChangeDone}
@@ -34,11 +29,9 @@ const ToDoComponent = ({toDoItem, onClickDone, onClickDelete}) => {
         />
         <p>{title}</p>
       </div>
-      <Checkbox
-        checked={false}
-        onChange={onPressDelete}
-        inputProps={{'aria-label': 'controlled'}}
-      />
+      <IconButton onClick={onPressDelete} aria-label='delete'>
+        <img src={xIcon} alt='X icon' className='imageStyles' />
+      </IconButton>
     </li>
   );
 };

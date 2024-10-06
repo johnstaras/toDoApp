@@ -1,7 +1,12 @@
 import {Filters} from '../constants/filters';
 import FilterButton from './FilterButton';
 
-const FiltersOptions = ({activeFilter, onPressFilter}) => {
+interface FilterOptionsProps {
+  activeFilter: string;
+  onPressFilter: (filter: string) => void;
+}
+
+const FiltersOptions: React.FC<FilterOptionsProps> = ({activeFilter, onPressFilter}) => {
   return (
     <div style={{flexDirection: 'row', display: 'flex'}}>
       <FilterButton
